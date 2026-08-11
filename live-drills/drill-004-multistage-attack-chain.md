@@ -59,6 +59,7 @@ attempt is realistic attacker behaviour worth documenting.
  confirmed — repeated failed login attempts from same source IP
  (T1110.001)"},"agent":{"id":"002","name":"ubuntu-soc-agent"}}
 ```
+![Stage 1: Hydra brute force attack](../screenshots/drill-004/drill4-01-stage1-bruteforce.png)
 
 **Enrichment note:** The attacker IP (Kali, `192.168.56.50`) is a
 private/RFC1918 address and was correctly filtered from external
@@ -78,6 +79,7 @@ Real SHA256 extracted from the actual dropped file:
 ```
 653aab7444c4d500f9455964529d2e46b03183579631619e96ad18313b685912
 ```
+![Stage 2: Payload staging and hash extraction](../screenshots/drill-004/drill4-02-stage2-payload-staging.png)
 
 **Enrichment result:**
 ```
@@ -120,6 +122,7 @@ malicious IP validated in Drill 3 (100/100 AbuseIPDB confidence,
  45.148.10.151 - BLOCK recommended","id":"100016"},
  "agent":{"id":"000"}}
 ```
+![Stage 3: C2 callback detected and blocked](../screenshots/drill-004/drill4-03-stage3-c2-block.png)
 
 **Containment confirmed:**
 ```bash
@@ -145,6 +148,7 @@ T1110.001 (Credential Access — Brute Force)
             └─→ T1071 (Command & Control — Application Layer Protocol)
                     └─→ [CONTAINED: automated block within <1s of verdict]
 ```
+![Wazuh dashboard filtered view showing full kill chain](../screenshots/drill-004/drill4-04-wazuh-killchain-view.png)
 
 ---
 
@@ -156,6 +160,7 @@ T1110.001 (Credential Access — Brute Force)
 | Time from verdict to firewall block applied | <1 second |
 | Total incident duration (Stage 1 start → containment) | 11 minutes 25 seconds |
 | Auto-unblock accuracy | 622s vs 600s configured timeout |
+![Enrichment engine log showing full incident timeline](../screenshots/drill-004/drill4-05-enrichment-log-timeline.png)
 
 ---
 
