@@ -1,0 +1,56 @@
+<!--
+  Threat Intelligence Enrichment Rules (100012-100016)
+  Project 3 - Threat Intel Integration
+
+  These rules act on JSON output written by the Python enrichment
+  engine (enrichment-engine/src/main.py -> write_intel_alert()) to
+  /home/wazuhuser/enrichment-engine/logs/enrichment_alerts.json,
+  which is registered as a Wazuh <localfile> source in ossec.conf.
+
+  Rule 100012 is the base rule - fires on any enrichment result.
+  Rules 100013-100016 chain off it via if_sid, escalating severity
+  based on the verdict field the enrichment engine calculated from
+  MISP + AlienVault OTX + AbuseIPDB correlation.
+
+  Custom rule count after Project 2: 11 (100001-100011)
+  Custom rule count after Project 3: 16 (100001-100016)
+-->
+
+<group name="threat_intel,">
+
+  <rule id="100012" level="3">
+    <decoded_as>json</decoded_as>
+    <field name="enrichment_ip">\.+</field>
+    <description>Threat intel enrichment result received</description>
+    <group>threat_intel,enrichment,</group>
+  </rule>
+
+  <rule id="100013" level="6">
+    <if_sid>100012</if_sid>
+    <field name="verdict">SUSPICIOUS</field>
+    <description>Threat intel: SUSPICIOUS verdict for $(enrichment_ip)</description>
+    <group>threat_intel,suspicious,</group>
+  </rule>
+
+  <rule id="100014" level="8">
+    <if_sid>100012</if_sid>
+    <field name="verdict">REVIEW</field>
+    <description>Threat intel: REVIEW required for $(enrichment_ip)</description>
+    <group>threat_intel,review,</group>
+  </rule>
+
+  <rule id="100015" level="10">
+    <if_sid>100012</if_sid>
+    <field name="verdict">LIKELY_MALICIOUS</field>
+    <description>Threat intel: LIKELY MALICIOUS - $(enrichment_ip)</description>
+    <group>threat_intel,likely_malicious,</group>
+  </rule>
+
+  <rule id="100016" level="13">
+    <if_sid>100012</if_sid>
+    <field name="verdict">BLOCK</field>
+    <description>CRITICAL: Threat intel confirms malicious IP $(enrichment_ip) - BLOCK recommended</description>
+    <group>threat_intel,block,critical,</group>
+  </rule>
+
+</group>
