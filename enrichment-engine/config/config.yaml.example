@@ -1,0 +1,24 @@
+abuseipdb:
+  api_key: "YOUR_ABUSEIPDB_KEY_HERE"
+  url: "https://api.abuseipdb.com/api/v2/check"
+  max_age_days: 90
+
+otx:
+  api_key: "YOUR_OTX_KEY_HERE"
+  url: "https://otx.alienvault.com/api/v1"
+
+misp:
+  api_key: "YOUR_MISP_KEY_HERE"
+  url: "https://192.168.56.105"
+  verify_ssl: false
+
+thresholds:
+  block_score: 75
+  review_score: 50
+
+alerts:
+  watch_file: "/var/ossec/logs/alerts/alerts.json"
+
+logging:
+  file: "/home/wazuhuser/enrichment-engine/logs/enrichment.log"
+  level: "INFO"
