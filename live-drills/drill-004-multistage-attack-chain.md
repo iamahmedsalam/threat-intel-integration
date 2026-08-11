@@ -160,9 +160,9 @@ T1110.001 (Credential Access — Brute Force)
 | Time from verdict to firewall block applied | <1 second |
 | Total incident duration (Stage 1 start → containment) | 11 minutes 25 seconds |
 | Auto-unblock accuracy | 622s vs 600s configured timeout |
-![Enrichment engine log showing full incident timeline](../screenshots/drill-004/drill4-05-enrichment-log-timeline.png)
 
 ---
+![Enrichment engine log showing full incident timeline](../screenshots/drill-004/drill4-05-enrichment-log-timeline.png)
 
 ## Verdict & Classification
 
