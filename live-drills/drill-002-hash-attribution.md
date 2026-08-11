@@ -34,7 +34,8 @@ Windows Temp directory:
 echo "This is a simulated malware payload for Project 3 hash attribution testing - T1105" > C:\Users\Public\payload-source.txt
 certutil -encode C:\Users\Public\payload-source.txt C:\Users\Jackal\AppData\Local\Temp\svc-update.exe
 ```
-
+![Payload staging via certutil and file hash extraction](../screenshots/drill-002/drill2-01-payload-staging-and-hash.png)
+![Wazuh dashboard showing Rule 100008 alert](../screenshots/drill-002/drill2-02-wazuh-dashboard-100008.png)
 Rule 100008 fired correctly, confirming the file-drop detection was
 unaffected by this project's changes.
 
@@ -55,6 +56,7 @@ SHA256: b5f563782e79ee9896710cbae4934d3ba0eeaaf6c0486e836572501eaf23fb66
   MISP Match: False
   Sources responding: 2/2
 ```
+![Hash enrichment CLEAN verdict on real dropped file](../screenshots/drill-002/drill2-03-hash-clean-verdict.png)
 
 **Analysis:** Correct. This is a freshly-generated test file with no
 prior existence anywhere — it has no threat-intelligence history by
@@ -80,6 +82,7 @@ public malware hash (WannaCry ransomware):
     - WanaCrypt0r Ransomworm
   MISP event IDs: [623, 625, 626]
 ```
+![Hash enrichment BLOCK verdict on WannaCry reference hash](../screenshots/drill-002/drill2-04-hash-block-verdict-wannacry.png)
 
 **Analysis:** Correct. Real, well-corroborated attribution — 50 OTX
 pulses referencing known ransomware campaigns, 3 independent MISP
