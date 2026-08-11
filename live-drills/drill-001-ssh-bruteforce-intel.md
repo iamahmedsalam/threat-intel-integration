@@ -62,7 +62,6 @@ custom Rule 100011.
 }
 ```
 ![Wazuh dashboard showing Rule 100011 alert](../screenshots/drill-001/drill1-03-wazuh-dashboard-100011.png)
-
 ---
 
 ## Enrichment Engine Behaviour
