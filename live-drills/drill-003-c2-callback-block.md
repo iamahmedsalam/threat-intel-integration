@@ -39,6 +39,7 @@ own AbuseIPDB client:
 45.148.10.147 -> Score: 100, Reports: 212112, ISP: TECHOFF SRV LIMITED
 45.148.10.152 -> Score: 100, Reports: 211067, ISP: TECHOFF SRV LIMITED
 ```
+![Live AbuseIPDB score check across 5 candidate IPs](../screenshots/drill-003/drill3-01-candidate-ip-scores.png)
 
 All 5 confirmed live at 100/100 confidence. `45.148.10.151` selected
 for the drill.
@@ -71,6 +72,7 @@ c2_alert = {
 2026-08-11 07:47:40,078  WARNING  Direct block: BLOCKED 45.148.10.151
                                    via enrichment engine (bypassing Wazuh AR)
 ```
+![BLOCK verdict and direct-block engine firing](../screenshots/drill-003/drill3-02-block-verdict-direct-block.png)
 
 **Multi-source result:**
 
@@ -89,6 +91,8 @@ c2_alert = {
 $ sudo iptables -L INPUT -n | grep 45.148.10.151
 DROP       0    --  45.148.10.151        0.0.0.0/0
 ```
+![iptables DROP rule confirmed active](../screenshots/drill-003/drill3-03-iptables-drop-confirmed.png)
+![Wazuh dashboard showing Rule 100016 CRITICAL alert](../screenshots/drill-003/drill3-04-wazuh-dashboard-100016.png)
 
 Confirmed active immediately following the BLOCK verdict — no
 dependency on Wazuh's Active Response dispatch (see
@@ -103,6 +107,7 @@ was built instead).
 07:47:40 — BLOCKED 45.148.10.151
 07:58:02 — UNBLOCKED (age 622s, timeout reached)
 ```
+![Auto-unblock confirmed via cron cleanup](../screenshots/drill-003/drill3-05-auto-unblock-confirmed.png)
 
 622 seconds against a 600-second configured timeout — accurate to
 within the cron job's ~1-minute polling interval, exactly as designed.
